@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { SetBadgeColor } from '../services';
+import { SetBadgeColor, priceDecimalFormat } from '../services';
 
 interface CardProps {
   product: Product;
@@ -26,7 +26,7 @@ const ProductCard: React.FC<CardProps> = ({ product }) => {
             <Link to={`/products/${product.id}`}>{product.title}</Link>
           </h5>
           <div className='d-flex justify-content-between align-items-center'>
-            <strong>${product.price}</strong>
+            <strong>${priceDecimalFormat(+product.price)}</strong>
             <span
               className={`badge text-white ${SetBadgeColor(product.category)}`}>
               {product.category}

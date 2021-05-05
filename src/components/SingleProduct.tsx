@@ -1,4 +1,5 @@
 import React from 'react';
+import { SetBadgeColor } from '../services';
 
 interface SingleProductProps {
   product: Product | undefined;
@@ -34,7 +35,12 @@ const SingleProduct: React.FC<SingleProductProps> = ({ product }) => {
               <h4>Description</h4>
               <p>{product.description}</p>
               <div>
-                <span className='badge badge-warning'>{product.category}</span>
+                <span
+                  className={`badge text-white ${SetBadgeColor(
+                    product.category
+                  )}`}>
+                  {product.category}
+                </span>
               </div>
             </div>
             {/* product add to cart */}

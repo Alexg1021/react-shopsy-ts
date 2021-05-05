@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import { SetBadgeColor } from '../services';
 
 interface CardProps {
   product: Product;
@@ -26,7 +27,10 @@ const ProductCard: React.FC<CardProps> = ({ product }) => {
           </h5>
           <div className='d-flex justify-content-between align-items-center'>
             <strong>${product.price}</strong>
-            <span className='badge badge-warning'>{product.category}</span>
+            <span
+              className={`badge text-white ${SetBadgeColor(product.category)}`}>
+              {product.category}
+            </span>
           </div>
         </div>
       </span>

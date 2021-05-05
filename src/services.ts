@@ -1,3 +1,5 @@
+// 
+
 enum TypeColor {
     "electronics" = "bg-warning",
     "jewelery" = "bg-primary",
@@ -19,3 +21,7 @@ enum TypeColor {
         return '#333';
     }
   };
+
+  export const priceDecimalFormat = (price:number): string => {
+      return price.toFixed(2);
+  }

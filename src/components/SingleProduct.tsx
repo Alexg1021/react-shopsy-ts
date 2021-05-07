@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { SetBadgeColor, priceDecimalFormat } from '../services';
+import { GlobalContext } from '../context/GlobalContext';
 
 interface SingleProductProps {
   product: Product | undefined;
 }
 
 const SingleProduct: React.FC<SingleProductProps> = ({ product }) => {
+  const { addToCart } = useContext(GlobalContext);
   if (!product) {
     return <div>There is no product to show!</div>;
   }
@@ -59,7 +61,9 @@ const SingleProduct: React.FC<SingleProductProps> = ({ product }) => {
                 </div>
 
                 <div className='col-10'>
-                  <button className='btn btn-block btn-danger'>
+                  <button
+                    className='btn btn-block btn-danger'
+                    onClick={() => addToCart(product)}>
                     Add To Cart
                   </button>
                 </div>

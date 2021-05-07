@@ -8,6 +8,7 @@ const initialState = {
   product: undefined,
   getProducts: () => {},
   getSingleProduct: () => {},
+  addToCart: () => {},
 };
 
 // Create our global reducer
@@ -31,6 +32,10 @@ const appReducer = (state: any, action: any) => {
     case 'GET_SINGLE_PRODUCT':
       // when case matches, bind the payload to the product property in state
       return { ...state, product: action.payload };
+    case 'ADD_TO_CART':
+      console.log('what is payload?', action.payload);
+      return { ...state, cart: [...state.cart, action.payload] };
+
     default:
       return state;
   }
@@ -65,6 +70,11 @@ export const GlobalProvider: React.FC = ({ children }) => {
     }
   };
 
+  const addToCart = (product: Product) => {
+    // receive a product that we can then move into our cart array
+    dispatch({ type: 'ADD_TO_CART', payload: product });
+  };
+
   return (
     <GlobalContext.Provider
       value={{
@@ -73,6 +83,7 @@ export const GlobalProvider: React.FC = ({ children }) => {
         product: state.product,
         getProducts,
         getSingleProduct,
+        addToCart,
       }}>
       {children} {/* <AppRouter/> */}
     </GlobalContext.Provider>

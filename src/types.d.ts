@@ -23,6 +23,7 @@ type InitialStateType = {
     products: Product[];
     cart: Product[];
     product: Product | undefined;
+    is_loading: boolean;
     getProducts: () => void;
     getSingleProduct: (productId:number) => void;
     addToCart: (product:Product) => void;

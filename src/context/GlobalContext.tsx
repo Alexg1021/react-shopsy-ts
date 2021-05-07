@@ -33,9 +33,8 @@ const appReducer = (state: any, action: any) => {
       // when case matches, bind the payload to the product property in state
       return { ...state, product: action.payload };
     case 'ADD_TO_CART':
-      let _cart = state.cart;
-      _cart.push(action.payload);
-      return { ...state, cart: _cart };
+      console.log('what is payload?', action.payload);
+      return { ...state, cart: [...state.cart, action.payload] };
 
     default:
       return state;

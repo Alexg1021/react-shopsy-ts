@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { SetBadgeColor, priceDecimalFormat } from '../services';
+import { GlobalContext } from '../context/GlobalContext';
 
 interface CardProps {
   product: Product;
 }
 
 const ProductCard: React.FC<CardProps> = ({ product }) => {
+  const { addToCart } = useContext(GlobalContext);
   const history = useHistory();
   return (
     <div className='card h-100 product-card-hover d-flex flex-column justify-content-between'>
@@ -37,7 +39,11 @@ const ProductCard: React.FC<CardProps> = ({ product }) => {
 
       {/* Add to Cart Button  */}
       <div className='card-footer'>
-        <button className='btn btn-block btn-primary'>Add To Cart</button>
+        <button
+          className='btn btn-block btn-primary'
+          onClick={() => addToCart(product)}>
+          Add To Cart
+        </button>
       </div>
     </div>
   );

@@ -1,14 +1,19 @@
 import { useEffect, useContext } from 'react';
 import ProductCard from '../components/ProductCard';
 import { GlobalContext } from '../context/GlobalContext';
+import Loader from '../components/Loader';
 import '../App.css';
 
 const HomePage = () => {
-  const { products, getProducts } = useContext(GlobalContext);
+  const { products, getProducts, is_loading } = useContext(GlobalContext);
 
   useEffect(() => {
     getProducts();
   }, []);
+
+  if (is_loading) {
+    return <Loader />;
+  }
 
   return (
     <div id='home'>

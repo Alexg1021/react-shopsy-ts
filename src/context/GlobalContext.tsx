@@ -34,9 +34,10 @@ const appReducer = (state: any, action: any) => {
       // when case matches, bind the payload to the product property in state
       return { ...state, product: action.payload, is_loading: false };
     case 'ADD_TO_CART':
+      debugger;
       const addedProduct = action.payload;
       const _cartItem = state.cart.find(
-        (c: CartItem, i: number) => c.product === addedProduct
+        (ci: CartItem, i: number) => ci.product.id === addedProduct.id // id === id ?
       );
       if (_cartItem) {
         // 1. update the quantity
@@ -50,7 +51,7 @@ const appReducer = (state: any, action: any) => {
         // if it matches an item inside the cart array, update that item
         // else return the cartItem back to the array
         const updatedCart = state.cart.map((cartItem: CartItem) =>
-          cartItem.product === addedProduct
+          cartItem.product.id === addedProduct.id
             ? { ...cartItem, quantity: cartItem.quantity + 1 }
             : cartItem
         );

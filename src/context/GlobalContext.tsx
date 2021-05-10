@@ -34,7 +34,6 @@ const appReducer = (state: any, action: any) => {
       // when case matches, bind the payload to the product property in state
       return { ...state, product: action.payload, is_loading: false };
     case 'ADD_TO_CART':
-      debugger;
       const addedProduct = action.payload;
       const _cartItem = state.cart.find(
         (ci: CartItem, i: number) => ci.product.id === addedProduct.id // id === id ?

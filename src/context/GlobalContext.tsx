@@ -10,6 +10,8 @@ const initialState = {
   getProducts: () => {},
   getSingleProduct: () => {},
   addToCart: () => {},
+  decreaseCartQuantity: () => {},
+  increaseCartQuantity: () => {},
 };
 
 // Create our global reducer
@@ -54,7 +56,6 @@ const appReducer = (state: any, action: any) => {
             ? { ...cartItem, quantity: cartItem.quantity + 1 }
             : cartItem
         );
-
         return { ...state, cart: updatedCart };
       } else {
         // create a new cartItem
@@ -68,6 +69,35 @@ const appReducer = (state: any, action: any) => {
         return { ...state, cart: [...state.cart, cartItem] };
       }
 
+    case 'DECREASE':
+      // make a copy of my current cart array
+      // map through our cart array searching by id
+      // when id matches then I reduce the quantity by 1
+      // if reaches 0 then filter items out
+      // finally set the copy of my cart to be the new cart state
+      let updatedCart = state.cart
+        .map((cartItem: CartItem) => {
+          if (cartItem.id === action.payload) {
+            return { ...cartItem, quantity: cartItem.quantity - 1 };
+          } else {
+            return cartItem;
+          }
+        })
+        .filter((cartItem: CartItem) => cartItem.quantity !== 0);
+
+      return { ...state, cart: updatedCart };
+    case 'INCREASE':
+      // look for a cartItem by id using the map
+      // when id matches update quantity by 1
+      // return the updated cart to state
+      let increasedCart = state.cart.map((cartItem: CartItem) => {
+        if (cartItem.id === action.payload) {
+          return { ...cartItem, quantity: cartItem.quantity + 1 };
+        } else {
+          return cartItem;
+        }
+      });
+      return { ...state, cart: increasedCart };
     case 'SET_LOADING':
       return { ...state, is_loading: action.payload };
     default:
@@ -110,6 +140,14 @@ export const GlobalProvider: React.FC = ({ children }) => {
     dispatch({ type: 'ADD_TO_CART', payload: product });
   };
 
+  const decreaseCartQuantity = (cartItemId: number) => {
+    dispatch({ type: 'DECREASE', payload: cartItemId });
+  };
+
+  const increaseCartQuantity = (cartItemId: number) => {
+    dispatch({ type: 'INCREASE', payload: cartItemId });
+  };
+
   return (
     <GlobalContext.Provider
       value={{
@@ -120,6 +158,8 @@ export const GlobalProvider: React.FC = ({ children }) => {
         getProducts,
         getSingleProduct,
         addToCart,
+        decreaseCartQuantity,
+        increaseCartQuantity,
       }}>
       {children} {/* <AppRouter/> */}
     </GlobalContext.Provider>

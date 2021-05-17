@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom';
 import { SetBadgeColor, priceDecimalFormat } from '../services';
 
 const CartPage = () => {
-  const { cart } = useContext(GlobalContext);
+  const { cart, decreaseCartQuantity, increaseCartQuantity } =
+    useContext(GlobalContext);
 
   if (cart.length === 0) {
     return (
@@ -72,6 +73,9 @@ const CartPage = () => {
                                 type='button'
                                 className='btn btn-info btn-number'
                                 data-type='minus'
+                                onClick={() =>
+                                  decreaseCartQuantity(cartItem.id)
+                                }
                                 data-field=''>
                                 <span className='increment-minus'>-</span>
                               </button>
@@ -90,6 +94,9 @@ const CartPage = () => {
                                 type='button'
                                 className='btn btn-info btn-number'
                                 data-type='plus'
+                                onClick={() =>
+                                  increaseCartQuantity(cartItem.id)
+                                }
                                 data-field=''>
                                 <span className='increment-plus'>+</span>
                               </button>

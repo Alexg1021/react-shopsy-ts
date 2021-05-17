@@ -50,17 +50,7 @@ const SingleProduct: React.FC<SingleProductProps> = ({ product }) => {
             {/* product add to cart */}
             <div className='card-cart'>
               <div className='row'>
-                <div className='col-2'>
-                  <div className='form-group'>
-                    <select className='form-control'>
-                      <option value='1'>1</option>
-                      <option value='2'>2</option>
-                      <option value='3'>3</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div className='col-10'>
+                <div className='col'>
                   <button
                     className='btn btn-block btn-danger'
                     onClick={() => addToCart(product)}>

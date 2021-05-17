@@ -20,9 +20,9 @@ const CartPage = () => {
   }
   return (
     <div id='cart'>
-      <div className='row text-center'>
+      <div className='row text-center mt-5 mb-3'>
         <div className='col'>
-          <h2>Cart Page!</h2>
+          <h2>YOUR BAG</h2>
         </div>
       </div>
       <div className='row'>
@@ -64,7 +64,39 @@ const CartPage = () => {
                             )}
                           </div>
                         </div>
-                        <div className='item-quantity'></div>
+                        <div className='item-quantity'>
+                          {/* incremement button starts */}
+                          <div className='input-group'>
+                            <span className='input-group-btn'>
+                              <button
+                                type='button'
+                                className='btn btn-info btn-number'
+                                data-type='minus'
+                                data-field=''>
+                                <span className='increment-minus'>-</span>
+                              </button>
+                            </span>
+                            <input
+                              type='text'
+                              id='quantity'
+                              name='quantity'
+                              className='form-control input-number'
+                              value={cartItem.quantity}
+                              min='1'
+                              max='100'
+                            />
+                            <span className='input-group-btn'>
+                              <button
+                                type='button'
+                                className='btn btn-info btn-number'
+                                data-type='plus'
+                                data-field=''>
+                                <span className='increment-plus'>+</span>
+                              </button>
+                            </span>
+                          </div>
+                          {/* increment ends */}
+                        </div>
                       </div>
                     </div>
                   </div>

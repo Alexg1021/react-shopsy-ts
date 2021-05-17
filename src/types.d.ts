@@ -61,4 +61,5 @@ type InitialStateType = {
     addToCart: (product:Product) => void;
     decreaseCartQuantity: (cartItemId:number) => void;
     increaseCartQuantity: (cartItem:number) => void;
+    removeFromCart: (cartItemId: number) => void;
 };

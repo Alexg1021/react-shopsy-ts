@@ -12,6 +12,7 @@ const initialState = {
   addToCart: () => {},
   decreaseCartQuantity: () => {},
   increaseCartQuantity: () => {},
+  removeFromCart: () => {},
 };
 
 // Create our global reducer
@@ -98,6 +99,14 @@ const appReducer = (state: any, action: any) => {
         }
       });
       return { ...state, cart: increasedCart };
+    case 'REMOVE':
+      // find a cartitem by id
+      // remove that item form cart []
+      // update our cart state without cartItem
+      let removedItems = state.cart.filter(
+        (cartItem: CartItem) => cartItem.id !== action.payload
+      );
+      return { ...state, cart: removedItems };
     case 'SET_LOADING':
       return { ...state, is_loading: action.payload };
     default:
@@ -148,6 +157,10 @@ export const GlobalProvider: React.FC = ({ children }) => {
     dispatch({ type: 'INCREASE', payload: cartItemId });
   };
 
+  const removeFromCart = (cartItemId: number) => {
+    dispatch({ type: 'REMOVE', payload: cartItemId });
+  };
+
   return (
     <GlobalContext.Provider
       value={{
@@ -160,6 +173,7 @@ export const GlobalProvider: React.FC = ({ children }) => {
         addToCart,
         decreaseCartQuantity,
         increaseCartQuantity,
+        removeFromCart,
       }}>
       {children} {/* <AppRouter/> */}
     </GlobalContext.Provider>

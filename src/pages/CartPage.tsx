@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { SetBadgeColor, priceDecimalFormat } from '../services';
 
 const CartPage = () => {
-  const { cart, decreaseCartQuantity, increaseCartQuantity } =
+  const { cart, decreaseCartQuantity, increaseCartQuantity, removeFromCart } =
     useContext(GlobalContext);
 
   const totalPrice = () => {
@@ -126,6 +126,13 @@ const CartPage = () => {
                             </span>
                           </div>
                           {/* increment ends */}
+                        </div>
+                        <div>
+                          <a
+                            href='javascript:void(0)'
+                            onClick={() => removeFromCart(cartItem.id)}>
+                            Remove from Cart
+                          </a>
                         </div>
                       </div>
                     </div>

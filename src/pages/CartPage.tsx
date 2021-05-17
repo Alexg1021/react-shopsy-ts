@@ -7,6 +7,16 @@ const CartPage = () => {
   const { cart, decreaseCartQuantity, increaseCartQuantity } =
     useContext(GlobalContext);
 
+  const totalPrice = () => {
+    let total = 0;
+
+    cart.forEach((cartItem: CartItem) => {
+      total += +cartItem.product.price * cartItem.quantity;
+    });
+
+    return total.toFixed(2);
+  };
+
   if (cart.length === 0) {
     return (
       <div className='row text-center mt-5'>
@@ -26,7 +36,7 @@ const CartPage = () => {
           <h2>YOUR BAG</h2>
         </div>
       </div>
-      <div className='row'>
+      <div className='row mb-5'>
         <div className='col-sm-12 col-md-8 offset-md-2'>
           <ul className='list-group'>
             {cart.map(cartItem => {
@@ -43,7 +53,11 @@ const CartPage = () => {
                     {/* product details */}
                     <div className='col-sm-12 col-md-8'>
                       <div className='cart-item-body'>
-                        <h3>{cartItem.product.title}</h3>
+                        <h3>
+                          <Link to={`/products/${cartItem.product.id}`}>
+                            {cartItem.product.title}
+                          </Link>
+                        </h3>
                         <div>
                           <span
                             className={`badge ${SetBadgeColor(
@@ -62,6 +76,15 @@ const CartPage = () => {
                             $
                             {priceDecimalFormat(
                               +cartItem.product.price * cartItem.quantity
+                            )}
+                          </div>
+                          <div>
+                            {cartItem.quantity > 1 ? (
+                              <small className='text-secondary'>
+                                {+cartItem.product.price} per item
+                              </small>
+                            ) : (
+                              ''
                             )}
                           </div>
                         </div>
@@ -111,6 +134,10 @@ const CartPage = () => {
               );
             })}
           </ul>
+          <hr />
+          <div className='total-price text-right mt-3'>
+            <h4>Total: ${totalPrice()}</h4>
+          </div>
         </div>
       </div>
     </div>
